@@ -72,7 +72,7 @@ export default {
   flex-direction: row;
   padding: 10px 0;
   overflow: hidden;
-  @include onepx('bottom')
+  @include onepx('bottom');
   &:last-child {
     &:after {
       border-top: 0;
@@ -107,7 +107,6 @@ export default {
       font-size: 12px;
       color: #666;
       margin-top: 7px;
-      .star {}
       .count {
         margin-left: 10px;
       }
@@ -133,7 +132,6 @@ export default {
       .deliver {
         @include right-bar();
       }
-      .average {}
     }
     .activity {
       flex: 1;
