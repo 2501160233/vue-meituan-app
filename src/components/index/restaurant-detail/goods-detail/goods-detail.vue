@@ -60,7 +60,7 @@
 
           <div class="ratings-wrapper">
             <ul v-show="food.ratings && food.ratings.length">
-              <li class="ratings-item" v-for="rating in food.ratings" v-show="needShow(rating.rateType, rating.text)">
+              <li class="ratings-item" v-for="(rating, index) in food.ratings" v-show="needShow(rating.rateType, rating.text)" :key="index">
                 <div class="user">
                   <span class="name">{{rating.username}}</span>
                   <img :src="rating.avatar">

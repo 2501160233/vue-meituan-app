@@ -65,6 +65,11 @@ const login = (resolve) => {
     resolve(module)
   })
 }
+const searchFood = (resolve) => {
+  import('@/components/index/restaurant-detail/search-food').then((module) => {
+    resolve(module)
+  })
+}
 
 export default new Router({
   routes: [
@@ -108,6 +113,10 @@ export default new Router({
           component: Seller
         }
       ]
+    },
+    {
+      path: '/searchFood',
+      component: searchFood
     },
     // 发现
     {

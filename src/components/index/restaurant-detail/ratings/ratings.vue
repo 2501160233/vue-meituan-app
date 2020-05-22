@@ -41,7 +41,7 @@
 
       <div class="rating-wrapper">
         <ul>
-          <li class="rating-item" v-for="rating in ratings" v-show="needShow(rating.rateType, rating.text)">
+          <li class="rating-item" v-for="(rating, index) in ratings" v-show="needShow(rating.rateType, rating.text)" :key="index">
             <div class="avatar">
               <img :src="rating.avatar">
             </div>
@@ -58,7 +58,7 @@
 
               <div class="recommend" v-show="rating.recommend && rating.recommend.length">
                 <i class="icon-thumb_up"></i>
-                <span class="item" v-for="item in rating.recommend">{{item}}</span>
+                <span class="item" v-for="(item,index) in rating.recommend"  :key="index">{{item}}</span>
               </div>
 
               <div class="time">

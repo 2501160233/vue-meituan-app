@@ -2,7 +2,7 @@
 
 <template>
   <div class="find">
-    <div v-for="item in findListData">
+    <div v-for="(item, index) in findListData" :key="index">
       <find-item :data="item"></find-item>
     </div>
 

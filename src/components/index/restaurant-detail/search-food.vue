@@ -1,33 +1,29 @@
-<!-- 商家模块 点菜页面 -->
+<!-- 搜索页 -->
 
 <template>
   <div>
-    <!-- 左右联动 -->
+    <div class="search">
+        <div class="back" @click="goBack">
+            <i class="icon-arrow_lift" ></i>
+        </div>
+        <form class="search-wrapper">
+            <span class="search-icon" @click="search(context)"></span>
+            <input 
+                class="search-bar" 
+                type="text" 
+                v-model="context" 
+                @keydown.enter="search(context)"
+                placeholder="搜索店内商品" />
+        </form>
+    </div>
     <div class="goods">
-      <!-- 左侧菜单 -->
-      <div class="menu-wrapper" ref="menuRef">
-        <ul>
-          <li class="menu-item"
-              v-for="(item, index) in goods"
-              :class="{'current': currentIndex === index}"
-              @click="selectMenu(index, $event)"
-              :key="index">
-            <span class="text">
-              <span class="icon" v-show="item.type > 0" :class="classMap[item.type]"></span>
-              {{ item.name }}
-            </span>
-          </li>
-        </ul>
-      </div>
-
       <!-- 右侧食物列表 -->
       <div class="foods-wrapper" ref="foodsRef">
         <ul>
-          <li class="foods-list foods-list-hook" v-for="(item,index) in goods" ref="foodList"  :key="index">
-            <h1 class="title">{{ item.name }}</h1>
+          <li class="foods-list foods-list-hook"  ref="foodList"  >
 
             <ul>
-              <li class="foods-item" v-for="(food, index) in item.foods" @click="toFoodDetail(food, $event)"  :key="index">
+              <li class="foods-item" v-for="(food, index) in newlist" @click="toFoodDetail(food, $event)"  :key="index">
                 <div class="icon">
                   <img v-lazy="food.icon">
                 </div>
@@ -85,6 +81,9 @@ export default {
     return {
       // 商品数据
       goods: [],
+      newlist:[],
+      context:'',
+      seller: '',
       classMap: ['decrease', 'discount', 'special', 'invoice', 'guarantee'],
       // 右侧每一大项的高度区间
       // (10) [0, 1172, 1343, 1478, 1828, 2070, 2334, 2685, 3251, 4035]
@@ -96,10 +95,6 @@ export default {
     }
   },
   props: {
-    // 全部数据
-    seller: {
-      type: Object
-    }
   },
   watch: {},
   methods: {
@@ -123,6 +118,7 @@ export default {
     },
     // 初始化 BScroll
     _initScroll () {
+     if(this.scroller)
       this.menuScroll = new BScroll(this.$refs.menuRef, {
         click: true
       })
@@ -146,6 +142,8 @@ export default {
         height += foodList[i].clientHeight
         this.listHeight.push(height)
       }
+      // (10) [0, 1172, 1343, 1478, 1828, 2070, 2334, 2685, 3251, 4035]
+      // console.log(this.listHeight)
     },
     // better-scroll 默认会阻止浏览器的原生 click 事件。
     // 当设置为 true，better-scroll 会派发一个 click 事件
@@ -174,7 +172,27 @@ export default {
       }
       this.selectedFood = food
       this.$refs.goodsDetailRef.show()
-    }
+    },
+    search (context) {
+        this.newlist=[];
+        //字符串方法indexOf
+        this.goods.forEach((good) => {
+            good.foods.forEach((food) => {
+                if (food.name.indexOf(context)>=0) {
+                    this.newlist.push(food);
+                }
+            })
+      })
+
+    },
+    goBack (){
+        this.$router.push({
+            path:'/restaurant',
+        })
+    },
+    filterInput(val){   
+       return val.replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g,'')
+    } 
   },
   filters: {},
   computed: {
@@ -192,6 +210,7 @@ export default {
     },
     selectFoods () {
       let select = []
+      // 之前一直错，可能是 this 指向问题，不用箭头函数
       this.goods.forEach((good) => {
         good.foods.forEach((food) => {
           if (food.count) {
@@ -201,13 +220,24 @@ export default {
       })
       return select
     }
+ 
+  },
+  watch: {
+      context() {
+        this.$nextTick(() => {
+          this.context = this.filterInput(this.context)
+        })
+      }
   },
   created () {
     // 初始化数据
     this._initData()
   },
-  mounted () {},
-  destroyed () {}
+  mounted () {
+      this.seller = this.$route.query.seller
+      console.log(this.seller)
+  }
+
 }
 </script>
 
@@ -218,7 +248,7 @@ export default {
 .goods {
   display: flex;
   position: absolute;
-  top: 209px;
+  top: 60px;
   bottom: 46px;
   width: 100%;
   background-color: #fff;
@@ -254,19 +284,19 @@ export default {
           background-repeat: no-repeat;
           vertical-align: top;
           &.decrease {
-            @include bg-image('./img/decrease_3');
+            // @include bg-image('./img/decrease_3');
           }
           &.discount {
-            @include bg-image('./img/discount_3');
+            // @include bg-image('./img/discount_3');
           }
           &.guarantee {
-            @include bg-image('./img/guarantee_3');
+            // @include bg-image('./img/guarantee_3');
           }
           &.invoice {
-            @include bg-image('./img/invoice_3');
+            // @include bg-image('./img/invoice_3');
           }
           &.special {
-            @include bg-image('./img/special_3');
+            // @include bg-image('./img/special_3');
           }
         }
       }
@@ -351,5 +381,47 @@ export default {
       }
     }
   }
+}
+.search{
+    width: 100%;
+    height: 60px;
+    line-height: 50px;
+    background-color: #fff;
+}
+.search-wrapper {
+  width: 100%;
+  height: 50px;
+  /* background: pink; */
+  padding: 0 50px 0 50px;
+  /* 设置盒子从边框开始计算*/
+  box-sizing: border-box;
+}
+
+.search-wrapper .search-icon {
+  width: 28px;
+  height: 50px;
+  background: url(../../index/img/business/search.png) no-repeat 11px center;
+  background-size: 13px 13px;
+  position: absolute;
+}
+
+.search-wrapper .search-bar {
+  width: 100%;
+  height: 31px;
+  border: 0;
+  /* 设置盒子从边框开始计算*/
+  box-sizing: border-box;
+  background: #eeeeee;
+  border-radius: 25px;
+  padding-left: 28px;
+  /* 去除选中时蓝色边框*/
+  outline: none;
+}
+.back {
+    width: 30px;
+    height: 50px;
+    line-height: 55px;
+    margin-left: 10px;
+    float: left;
 }
 </style>

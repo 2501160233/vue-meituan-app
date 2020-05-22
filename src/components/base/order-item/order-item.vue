@@ -19,7 +19,7 @@
     </div>
 
     <div class="bottom">
-      <div class="again">再来一单</div>
+      <div class="again" @click="again">再来一单</div>
     </div>
   </div>
 </template>
@@ -36,7 +36,13 @@ export default {
     }
   },
   watch: {},
-  methods: {},
+  methods: {
+    again (){
+      this.$router.push({
+            path:'/restaurant',
+        })
+    }
+  },
   filters: {},
   computed: {},
   created () {},

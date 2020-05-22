@@ -2,7 +2,7 @@
 
 <template>
   <div class="star" :class="starType">
-    <span class="star-item" v-for="item in itemClasses" :class="item"></span>
+    <span class="star-item" v-for="(item, index) in itemClasses" :key="index" :class="item"></span>
   </div>
 </template>
 
@@ -40,7 +40,7 @@ export default {
     // 动态添加 'on' 'half' 'off'
     itemClasses () {
       let result = []
-      let score = Math.floor(this.score * 2) / 2
+      let score = Math.floor(this.score * 2) / 2 //向下取整 四舍五入
       // 是否有半星（小数）
       let hasDecimal = score % 1 !== 0
       // 有多少个整星

@@ -2,7 +2,6 @@
 
 <template>
   <ul class="tab-bar">
-    <!-- ?_? 当设置 to="/" 时，首页ico总是高亮，搞不懂 ?_? -->
     <router-link class="index" tag="li" to="/index">
       <i class="ico-index"></i>
       <span>首页</span>

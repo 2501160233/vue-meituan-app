@@ -33,7 +33,7 @@
         <!-- <div class="text">{{seller.bulletin}}</div> -->
 
         <ul v-if="seller.supports">
-          <li class="support" v-for="support in seller.supports">
+          <li class="support" v-for="(support, index) in seller.supports"  :key="index">
             <span class="icon" :class="classMap[support.type]"></span>
             <span class="description">{{support.description}}</span>
           </li>
@@ -49,7 +49,7 @@
 
         <div class="pic-wrapper" ref="picRef">
           <ul class="pic-list" ref="picListRef">
-            <li class="pic-item"v-for="pic in seller.pics">
+            <li class="pic-item" v-for="(pic,index) in seller.pics" :key="index">
               <img :src="pic">
             </li>
           </ul>
@@ -62,7 +62,7 @@
       <div class="info">
         <h1 class="title">商家信息</h1>
         <ul>
-          <li v-for="item in seller.infos" class="item">{{item}}</li>
+          <li v-for="(item,index) in seller.infos" class="item" :key="index">{{item}}</li>
         </ul>
       </div>
     </div>

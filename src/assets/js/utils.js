@@ -1,8 +1,3 @@
-/*
-* @Author:    白小明
-* @Created:   2017-08-01
-* @Modified:  2017-08-30
-*/
 
 // 这四个非常有用的弱封装JavaScript工具库你都使用过吗：http://www.360doc.com/content/17/0207/13/13792507_627244171.shtml
 // store.js：https://github.com/jaywcjlove/store.js
@@ -334,70 +329,7 @@ let utils = {
       }
     },
 
-    /**
-     * 检测密码强度
-     * checkPwdLv('12asdASAD') -> 3
-     * @param  {[type]} str [description]
-     * @return {[type]}     [description]
-     */
-    checkPwdLv (str) {
-      let nowLv = 0
-
-      // 密码长度 < 6，强度为 0
-      if (str.length < 6) {
-        return nowLv
-      }
-      // 密码长度 >= 6，全为数字，强度加 1
-      if (/[0-9]/.test(str)) {
-        nowLv++
-      }
-      // 密码长度 >= 6，全为小写字母，强度加 1
-      if (/[a-z]/.test(str)) {
-        nowLv++
-      }
-      // 密码长度 >= 6，全为大写字母，强度加 1
-      if (/[A-Z]/.test(str)) {
-        nowLv++
-      }
-
-      return nowLv
-    },
-
-    /**
-     * 产生随机颜色
-     * #d9d264 #d09293 #0e608e
-     * @param  {Number} need 1:十六进制颜色值 2:RGB颜色值
-     */
-    getRandomColor (need = 1) {
-      if (need === 1) {
-        return `#${Math.random().toString(16).substr(2, 6)}`
-      } else if (need === 2) {
-        return `rgb(${this.getRandom(0, 255)}, ${this.getRandom(0, 255)}, ${this.getRandom(0, 255)})`
-      }
-    },
-
-    /**
-     * 返回一个随机字符串
-     * @param  {Number} n      字符数量 [0, 13]
-     * @param  {String} prefix 随机字符串前缀
-     * @return {[type]}        [description]
-     */
-    getRandomStr (n = 5, prefix = '') {
-      return prefix + Math.random().toString(16).substr(2, n)
-    },
-
-    /**
-     * 动态创建 <script>
-     */
-    createScript (url, charset = 'utf-8') {
-      let script = document.createElement('script')
-      script.setAttribute('type', 'text/javascript')
-      script.setAttribute('charset', charset)
-      script.setAttribute('src', url)
-      script.async = true
-
-      return script
-    },
+    
 
     /**
      * 单行写一个评级组件

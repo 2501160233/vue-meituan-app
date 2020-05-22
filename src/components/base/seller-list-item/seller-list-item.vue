@@ -22,7 +22,7 @@
         <span class="average">{{ data.average_price_tip }}</span>
       </div>
 
-      <div class="activity" v-for="sup in data.discounts2">
+      <div class="activity" v-for="(sup,index) in data.discounts2" :key="index">
         <p><img :src="sup.icon_url">{{sup.info}}</p>
       </div>
     </div>

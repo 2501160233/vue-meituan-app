@@ -54,7 +54,7 @@
 
           <div class="list-content" ref="listContentRef">
             <ul>
-              <li class="food" v-for="food in selectFoods">
+              <li class="food" v-for="(food, index) in selectFoods" :key="index">
                 <span class="name">{{ food.name }}</span>
 
                 <div class="price">

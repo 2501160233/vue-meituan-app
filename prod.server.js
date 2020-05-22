@@ -1,4 +1,4 @@
-// 启动打包后(./dist)的项目
+
 
 var express = require('express')
 var config = require('./config/index')

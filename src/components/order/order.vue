@@ -2,7 +2,7 @@
 
 <template>
   <div class="order">
-    <div v-for="item in orderData">
+    <div v-for="(item, index) in orderData" :key="index">
       <order-item :data="item"></order-item>
     </div>
 

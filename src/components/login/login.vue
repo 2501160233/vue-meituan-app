@@ -59,14 +59,14 @@ export default {
       })
     },
     login () {
-      axios.post('/user/login', {
-        username: this.login_username,
-        password: this.login_password
-      }).then(res => {
-        console.log(res)
-      }).catch(err => {
-        console.log(err)
-      })
+      // axios.post('/user/login', {
+      //   username: this.login_username,
+      //   password: this.login_password
+      // }).then(res => {
+      //   console.log(res)
+      // }).catch(err => {
+      //   console.log(err)
+      // })
     },
     register () {
       console.log('register')

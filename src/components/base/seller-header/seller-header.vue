@@ -10,7 +10,7 @@
 
           <form class="search-wrapper">
             <span class="search-icon"></span>
-            <input class="search-bar" type="text" placeholder="搜索店内商品" />
+            <input class="search-bar" type="text"  @click="search" placeholder="搜索店内商品" />
           </form>
 
           <div class="more-wrapper">
@@ -84,7 +84,7 @@
               </div>
 
               <ul class="detail-supports" v-if="seller.supports">
-                <li class="supports-item" v-for="(item, index) in seller.supports">
+                <li class="supports-item" v-for="(item, index) in seller.supports" :key="index">
                   <span class="icon" :class="classMap[seller.supports[index].type]"></span>
                   <span class="text">{{ seller.supports[index].description }}</span>
                 </li>
@@ -135,6 +135,14 @@ export default {
     back () {
       this.$router.push({
         path: '/index'
+      })
+    },
+    search () {
+      this.$router.push({
+        path: '/searchFood',
+        query: {
+          seller: this.seller
+        }
       })
     }
   },
